@@ -13,7 +13,7 @@ This is a quick proof of concept based on the [Concord outliner](https://github.
 It combines the goodness of outlining from Concord with some compelling ideas of wiki (channeled through my [SdiDesk](http://thoughtstorms.info/view/sdidesk) experience).
 
 Initial features of this demo :
-* unlike the original Concord Hello example, you can create a collection of named outlines (or "pages" in Wiki terminology).
+* unlike the original Concord "Hello" example, you can create a collection of named outlines (or "pages" in Wiki terminology).
 * a navbar where you can type the name of any page and click the Go! button to go there. Also supports forward and backward arrows.
 * easy link-making. I've gone for a slightly different approach here that I hope speaks to both outliner and wiki tropes. To turn 
 any piece of text into a link, select it, and click the "Link" button on the navbar. What this will do is make that text into a 
