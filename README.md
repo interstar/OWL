@@ -31,6 +31,8 @@ Quick Start
     
 You should now have a copy of OWL running in your browser.
 
+Alternatively, [try it out here.](http://project.thoughtstorms.info/owl/index.html)
+
 Other Issues
 ------------
 WARNING : As with the other Concord examples, your outlines are stored locally in the browser. There's no way to export yet. 
@@ -68,6 +70,6 @@ I'd like to find a way to avoid having to do this. When I do, I'll revert to usi
 
 Credits
 -------
-* Dave Winer for getting outlining into the browser (at last) and having the generosity to open-source the core.
-* Ward Cunningham for wiki fact and philosophy.
+* [Dave Winer](http://scripting.com/) for getting outlining into the browser (at last) and having the generosity to open-source the core.
+* [Ward Cunningham](https://github.com/WardCunningham/) for wiki fact and philosophy.
 
