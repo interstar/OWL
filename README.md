@@ -13,13 +13,13 @@ This is a quick proof of concept based on the [Concord outliner](https://github.
 It combines the goodness of outlining from Concord with some compelling ideas of wiki (channeled through my [SdiDesk](http://thoughtstorms.info/view/sdidesk) experience).
 
 Initial features of this demo :
-* unlike the original Concord "Hello" example, you can create a collection of named outlines (or "pages" in Wiki terminology).
-* a navbar where you can type the name of any page and click the Go! button to go there. Also has forward and back buttons.
+* unlike the original Concord "Hello" example, you can create a number of _named_ outlines (or "pages" in Wiki terminology).
+* a navbar where you can type the name of any outline and click the Go! button to go there. Also has forward and back buttons.
 * easy link-making. I've gone for a slightly different approach here that I hope speaks to both outliner and wiki tropes. To turn 
 any piece of text into a link, select it, and click the "Link" button on the navbar. What this will do is make that text into a 
-link to an outline of the _same name_. It's Wiki's [concrete names](http://thoughtstorms.info/view/concretepagenames) policy in 
+link to an outline of the _same name_. It's wiki's [concrete names](http://thoughtstorms.info/view/concretepagenames) policy in 
 action. (I know! I know! You think this is the dumbest idea you've ever heard. You want to be able to have a distinction between 
-the "real name" and the "display name". Trust me :-) )
+the "real name" and the "display name". But trust me :-) )
 
 
 Quick Start 

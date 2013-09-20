@@ -174,11 +174,14 @@
 						
 						"hasspeciallinkhandler":true,
 						"speciallinkhandler":function(url) {
-						    pageName = url.split("#")[1];
-						    console.log("Going to open " + pageName);
-						        forwardTo(pageName);
-						    }
-						
+						        if (url[0]=="#") {
+        						    pageName = url.split("#")[1];
+	        					    console.log("Going to open " + pageName);
+						            forwardTo(pageName);
+						        } else {
+						            window.open(url);
+						        }
+						    }						
 						},
 					"callbacks": {
 						"opInsert": opInsertCallback,
@@ -196,7 +199,7 @@
                 var concordOp = $(defaultUtilsOutliner).concord().op;
                 var s = window.getSelection();
                 console.log(s);
-                concordOp.link("index.html#"+s);
+                concordOp.link("#"+s);
             }
 				
 			function savePageNow () {
