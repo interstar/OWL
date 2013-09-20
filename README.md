@@ -70,6 +70,6 @@ I'd like to find a way to avoid having to do this. When I do, I'll revert to usi
 
 Credits
 -------
-* [Dave Winer](http://scripting.com/) for getting outlining into the browser (at last) and having the generosity to open-source the core.
+* [Dave Winer](http://scripting.com/) for getting a decent outliner into the browser (at last) and having the generosity to open-source the core.
 * [Ward Cunningham](https://github.com/WardCunningham/) for wiki fact and philosophy.
 
