@@ -13,19 +13,19 @@ This is a quick proof of concept based on the [Concord outliner](https://github.
 It combines the goodness of outlining from Concord with some compelling ideas of wiki (channeled through my [SdiDesk](http://thoughtstorms.info/view/sdidesk) experience).
 
 Initial features of this demo :
-* unlike the original Concord demos, you can now create a collection of named outlines (or "pages" in Wiki terminology).
+* unlike the original Concord Hello example, you can create a collection of named outlines (or "pages" in Wiki terminology).
 * a navbar where you can type the name of any page and click the Go! button to go there. Also supports forward and backward arrows.
 * easy link-making. I've gone for a slightly different approach here that I hope speaks to both outliner and wiki tropes. To turn 
 any piece of text into a link, select it, and click the "Link" button on the navbar. What this will do is make that text into a 
 link to an outline of the _same name_. It's Wiki's [concrete names](http://thoughtstorms.info/view/concretepagenames) policy in 
 action. (I know! I know! You think this is the dumbest idea you've ever heard. You want to be able to have a distinction between 
-the "real name" and the "display name". Trust me. You're wrong :-) )
+the "real name" and the "display name". Trust me :-) )
 
 
 Quick Start 
 -----------
 
-    git clone THISURL owl
+    git clone https://github.com/interstar/OWL.git owl
     cd owl
     firefox index.html
     
@@ -46,7 +46,7 @@ I was really trying hard to avoid forking the Concord library for this.
 But I couldn't make it work without patching a small change into concord.js , basically to allow me to write my own handler for 
 when the user clicks on links.
 
-The patch is in the file called concord.js.diff and is this : 
+The patch is recorded in the file called concord.js.diff and is this : 
 
     @@ -1156,7 +1156,12 @@ function ConcordEvents(root, editor, op, concordInstance) {
      		if(target.is("a")){
@@ -66,4 +66,8 @@ The patch is in the file called concord.js.diff and is this :
 I'd like to find a way to avoid having to do this. When I do, I'll revert to using the default concord as a submodule. 
 
 
+Credits
+-------
+* Dave Winer for getting outlining into the browser (at last) and having the generosity to open-source the core.
+* War Cunningham for wiki fact and philosophy. 
 
