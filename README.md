@@ -63,11 +63,11 @@ The patch is recorded in the file called concord.js.diff and is this :
      			return;
      			}
 
-I'd like to find a way to avoid having to do this. When I do, I'll revert to using the default concord as a submodule. 
+I'd like to find a way to avoid having to do this. When I do, I'll revert to using the default Concord as a submodule. 
 
 
 Credits
 -------
 * Dave Winer for getting outlining into the browser (at last) and having the generosity to open-source the core.
-* War Cunningham for wiki fact and philosophy. 
+* Ward Cunningham for wiki fact and philosophy.
 
