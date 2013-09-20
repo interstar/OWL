@@ -2,24 +2,23 @@
 	<head>
 		<title>OWLFPT</title>
 		<meta name="copyright" content="Copyright 2013, Small Picture, Inc.">
-		<script src="./concord/libraries/jquery-1.9.1.min.js"></script>  
-		<link href="./concord/libraries/bootstrap.css" rel="stylesheet">
-		<script src="./concord/libraries/bootstrap.min.js"></script>
+		<script src="./forked_concord/libraries/jquery-1.9.1.min.js"></script>  
+		<link href="./forked_concord/libraries/bootstrap.css" rel="stylesheet">
+		<script src="./forked_concord/libraries/bootstrap.min.js"></script>
 		
-		<link rel="stylesheet" href="./concord/concord.css"/>
-		<script src="./concord/concord.js"></script>
-		<script src="./concord/concordUtils.js"></script>
+		<link rel="stylesheet" href="./forked_concord/concord.css"/>
+		<script src="./forked_concord/concord.js"></script>
+		<script src="./forked_concord/concordUtils.js"></script>
 		
 		<script src="./pageStore.js"></script>
 		<script src="./navHistory.js"></script>
 		
-		<link href="http://netdna.bootstrapcdn.com/font-awesome/3.2.1/css/font-awesome.css" rel="stylesheet">
+		<!--link href="http://netdna.bootstrapcdn.com/font-awesome/3.2.1/css/font-awesome.css" rel="stylesheet"-->
 		
 		<script>
 			var appConsts = {
-				"productname": "OWLFPT",
-				"productnameForDisplay": "OWLFPT",
-				"domain": "sdi.synaesmedia.net", 
+				"productname": "OWL",
+				"productnameForDisplay": "OWL",  
 				"version": "0.50"
 				}
 			var appPrefs = {
@@ -238,7 +237,6 @@
 				$("#forwardButton").click(function(event) {console.log("forward button"); forwardButton();  });
 
 				$("#makeLinkButton").click(function(event) {console.log("make link button"); makeLink(); });				
-				$("#testButton").click(function(event) {console.log("test button"); testWalk(); });
 				
 			
 			    path = window.location.pathname + window.location.hash;
@@ -299,16 +297,7 @@
 										</ul>
 									</li>
 
-
-								<li class="dropdown" id="idDocsMenu">
-									<a href="#" class="dropdown-toggle" data-toggle="dropdown">Links&nbsp;<b class="caret"></b></a>
-									<ul class="dropdown-menu">
-										<li><a href="http://docs.fargo.io/outlinerHowto" target="_blank">Outliner Howto</a></li>
-										<li><a href="http://github.com/scripting/concord" target="_blank">GitHub Repo</a></li>
-										<li><a href="https://groups.google.com/forum/?fromgroups#!forum/smallpicture-concord" target="_blank">Mail List</a></li>
-										</ul>
-									</li>
-									
+			
 								</ul>
 							<ul class="nav pull-right">
 								<li>
