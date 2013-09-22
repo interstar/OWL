@@ -1,0 +1,65 @@
+	body {
+		background-color: whitesmoke;
+		}
+	.divOutlinerContainer { 
+		width: 75%;
+		margin-top: 75px;
+		margin-left: auto;
+		margin-right: auto;
+		border:1px solid gainsboro;
+		min-height: 550px;
+		max-height: 800px;
+		overflow: auto;
+		padding: 6px;
+		background-color: white;
+		}
+	.divSubtext {
+		width: 65%;
+		margin-top: 3px;
+		margin-left: auto;
+		margin-right: auto;
+		}
+	/* menubar */
+		.divMenubar .container { 
+			margin-left: auto;
+			margin-right: auto;
+			width: 940px;
+			}
+		.divMenubar .navbar .nav > li > a { 
+			font-size: 15px;
+			padding-top: 12px;
+			padding-left: 8px; padding-right: 8px; //6/3/13 by DW
+			outline: none !important;
+			}
+		.dropdown-menu > li > a {
+			cursor: pointer;
+			}
+		.navbar-inner { 
+			-moz-border-radius: 0;
+			-moz-border-radius: none; 
+			-moz-box-shadow: none; 
+			background-image: none; 
+			border-radius: 0;  
+			}
+		.divMenubar .brand { 
+			margin-top: 0;
+			}
+		.divMenubar .nav li {
+			font-family: Arial;
+			font-size: 14px;
+			font-weight: bold;
+			}
+		.menuKeystroke {
+			float: right;
+			margin-left: 25px;
+			}
+		.menuKeystroke:before {
+			content: "";
+			}
+		 #idMenuProductName {
+			font-family: "Arial";
+			font-size: 24px;
+			font-weight: bold;
+			font-style: italic;
+			}
+
