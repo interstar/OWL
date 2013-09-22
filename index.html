@@ -10,8 +10,8 @@
 		<script src="./forked_concord/concord.js"></script>
 		<script src="./forked_concord/concordUtils.js"></script>
 		
-		<script src="./pageStore.js"></script>
-		<script src="./navHistory.js"></script>
+		<script src="./owllibs/pageStore.js"></script>
+		<script src="./owllibs/navHistory.js"></script>
 		
 		<link href="http://netdna.bootstrapcdn.com/font-awesome/3.2.1/css/font-awesome.css" rel="stylesheet">
 		
@@ -29,7 +29,7 @@
 			var flReadOnly = false, flRenderMode = false;
 			var cmdKeyPrefix = "Ctrl+"; 
 			
-			var pageStore = new PageStore();
+			var pageStore = new BrowserBasedPageStore();
 			var currentPage = pageStore.get("HelloWorld");
 			var navHistory = new NavHistory();
 			
@@ -235,11 +235,11 @@
 				setOutlinerPrefs ("#outliner", true, false);
 				opSetFont (appPrefs.outlineFont, appPrefs.outlineFontSize, appPrefs.outlineLineHeight); 
 				
-				$("#goButton").click(function(event) { console.log("go button"); goButton(); });
-				$("#backButton").click(function(event) { console.log("back button"); backButton();  });
-				$("#forwardButton").click(function(event) {console.log("forward button"); forwardButton();  });
+				$("#goButton").click(function(event) { goButton(); });
+				$("#backButton").click(function(event) { backButton();  });
+				$("#forwardButton").click(function(event) { forwardButton();  });
 
-				$("#makeLinkButton").click(function(event) {console.log("make link button"); makeLink(); });				
+				$("#makeLinkButton").click(function(event) { makeLink(); });				
 				
 			
 			    path = window.location.pathname + window.location.hash;
