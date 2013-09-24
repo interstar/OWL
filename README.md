@@ -98,5 +98,5 @@ Credits
 -------
 * [Dave Winer](http://scripting.com/) for getting a decent outliner into the browser (at last) and having the generosity to open-source the core.
 * [Ward Cunningham](https://github.com/WardCunningham/) for wiki fact and philosophy.
-* [Aaron Swartz](http://www.rememberaaronsw.com/), author of the web.py module that runs the basic server, and who died fighting for the principle that knowledge should be a free and open-resource for all.
+* [Aaron Swartz](http://www.rememberaaronsw.com/), author of the web.py module that runs the basic server, who died fighting for the principle that knowledge should be a free and open resource for all.
 
