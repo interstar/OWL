@@ -56,6 +56,8 @@ You'll need to run a short make script to set up some symbolic links on your mac
     firefox localhost:8080/static/server.html
 
 
+Your OPML pages will be stored in the static subdirectory of the main owl directory.
+
 WARNING : This version of OWL is backing-up pages to the local server. Sometimes if you edit or move around too fast, changes can get lost. 
 
 Drive slowly! And don't forget to report any bugs :-)
