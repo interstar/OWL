@@ -29,21 +29,15 @@
 			var flReadOnly = false, flRenderMode = false;
 			var cmdKeyPrefix = "Ctrl+"; 
 			
-			var pageStore = new ServerBasedPageStore("/static/","/put/");
+			var pageStore = new ServerBasedPageStore("/static/","/put/",function(pName) { 
+			    console.log("callback from saving " + pName);			    
+			}, function(){});
 			var navHistory = new NavHistory();
 						
-			var currentPage;			
+			var currentPage;	
+					
 			pageStore.get("HelloWorld", function (page) { currentPage = page; });
-			
-			/*
-			$( document ).ajaxError(function(event, jqXHR, ajaxSettings, thrownError) {
-			    console.log("error");
-			    console.log(event);
-			    console.log(jqXHR);
-			    console.log(ajaxSettings);
-			    console.log(thrownError);
-			});
-			*/
+
 			
 			function initLocalStorage () {
 				if (localStorage.ctOpmlSaves == undefined) {
@@ -252,7 +246,7 @@
 				$("#forwardButton").click(function(event) { forwardButton();  });
 
 				$("#makeLinkButton").click(function(event) { makeLink(); });				
-				
+				$("#forceSaveButton").click(function(event) { savePageNow(); });
 			
 			    path = window.location.pathname + window.location.hash;
 			    console.log(path);
@@ -268,7 +262,7 @@
 				navHistory.newForward(pageName);
 				
 				
-				self.setInterval (function () {backgroundProcess ()}, 30000); //call every 30 seconds
+				self.setInterval (function () {backgroundProcess ()}, 10000); //call every 10 seconds
 				}
 			</script>
 		<link rel="stylesheet" href="./css/main.css"/>	
@@ -340,6 +334,8 @@
 
 	        
 		<div class="divOutlinerContainer">
+            <div id="alerts">
+            </div>
 
             <div class="fptNavBar">
                 <button class="button" id="backButton">&lt;</button>
@@ -347,7 +343,7 @@
                 <input  id="navPageName" />
                 <button class="button" id="goButton">Go!</button>
                 <button class="button" id="makeLinkButton">Link</button>
-                <!--button class="button" id="testButton">Test</button-->
+                <button class="button" id="saveButton">Force Save</button-->
                 </div>
 
             <div>&nbsp;</div>

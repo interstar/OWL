@@ -28,6 +28,8 @@ class Save :
             f = open("./static/%s.opml"%pageName,"w")
             f.write(body)
             f.close()
+            print "OK"
+            
         except Exception, e :
             print "%s" % e        
         #web.redirect(web.ctx.home+'/static/'+pName) 

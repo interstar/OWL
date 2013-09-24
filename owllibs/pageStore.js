@@ -63,8 +63,9 @@
 
   SyncQueue = (function() {
 
-    function SyncQueue(postUrl, errorHandler) {
+    function SyncQueue(postUrl, postSuccessHandler, errorHandler) {
       this.postUrl = postUrl;
+      this.postSuccessHandler = postSuccessHandler;
       this.errorHandler = errorHandler;
       this.queue = [];
     }
@@ -75,6 +76,10 @@
       }
       this.queue.push(pageName);
       return console.log(this.queue);
+    };
+
+    SyncQueue.prototype.isHolding = function(pageName) {
+      return __indexOf.call(this.queue, pageName) >= 0;
     };
 
     SyncQueue.prototype.next = function(pageStore) {
@@ -94,10 +99,13 @@
               "pageName": pName,
               "body": page.body
             },
-            success: function(data) {},
+            success: function(data) {
+              return _this.postSuccessHandler(pName);
+            },
             error: function(xmlHttpRequest) {
               console.log("ERROR IN POST " + pName);
-              return console.log(xmlHttpRequest);
+              console.log(xmlHttpRequest);
+              return _this.add(pName);
             }
           });
         }));
@@ -111,15 +119,25 @@
 
   this.ServerBasedPageStore = (function() {
 
-    function ServerBasedPageStore(getUrl, postUrl, saveErrorHandler) {
+    function ServerBasedPageStore(getUrl, postUrl, postSuccessHandler, saveErrorHandler) {
+      var _this = this;
       this.getUrl = getUrl;
       this.postUrl = postUrl;
       this.inner = new BrowserBasedPageStore();
-      this.syncQueue = new SyncQueue(this.postUrl, saveErrorHandler);
+      this.syncQueue = new SyncQueue(this.postUrl, postSuccessHandler, saveErrorHandler);
+      this.syncTimer = setInterval(function() {
+        console.log("in synctimer");
+        console.log("this is " + _this);
+        return _this.next();
+      }, 30000);
     }
 
     ServerBasedPageStore.prototype.get = function(pName, callback) {
       var _this = this;
+      if (this.syncQueue.isHolding(pName)) {
+        this.inner.get(pName, callback);
+        return;
+      }
       return $.ajax({
         type: 'GET',
         url: this.getUrl + pName + ".opml",
@@ -137,7 +155,10 @@
     ServerBasedPageStore.prototype.save = function(page) {
       this.inner.save(page);
       console.log("Now adding " + page.pageName + " to queue");
-      this.syncQueue.add(page.pageName);
+      return this.syncQueue.add(page.pageName);
+    };
+
+    ServerBasedPageStore.prototype.next = function() {
       return this.syncQueue.next(this.inner);
     };
 

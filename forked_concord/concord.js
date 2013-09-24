@@ -2482,7 +2482,7 @@ function ConcordOp(root, concordInstance, _cursor) {
 			var expansionStates = expansionState.text().split(/\s*,\s*/);
 			var nodeId = 1;
 			var cursor = root.find(".concord-node:first");
-			do {
+			do {    
 				if(cursor) {
 					if(expansionStates.indexOf(""+nodeId) >= 0){
 						cursor.removeClass("collapsed");

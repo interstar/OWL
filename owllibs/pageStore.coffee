@@ -34,7 +34,7 @@ class @BrowserBasedPageStore
         
 
 class SyncQueue
-    constructor:(@postUrl,@errorHandler) ->
+    constructor:(@postUrl,@postSuccessHandler,@errorHandler) ->
         @queue = []
         
     add:(pageName) ->
@@ -42,6 +42,8 @@ class SyncQueue
             return
         @queue.push(pageName)
         console.log(@queue)
+        
+    isHolding:(pageName) -> pageName in @queue
         
     next:(pageStore) ->
         console.log("in queue next ... url is #{@postUrl}")
@@ -55,22 +57,32 @@ class SyncQueue
                     type : 'POST',
                     url : @postUrl+pName,
                     data : {"pageName":pName, "body":page.body},
-                    success : (data) ->
+                    success : (data) =>
+                        @postSuccessHandler(pName)
                     ,
-                    error   : (xmlHttpRequest) ->
+                    error   : (xmlHttpRequest) =>
                             console.log("ERROR IN POST " + pName)
-                            console.log(xmlHttpRequest)     
+                            console.log(xmlHttpRequest)
+                            @add(pName)
                 })
                 
             )
 
 class @ServerBasedPageStore
-    constructor:(@getUrl,@postUrl,saveErrorHandler) ->
+    constructor:(@getUrl,@postUrl,postSuccessHandler,saveErrorHandler) ->
         @inner = new BrowserBasedPageStore()
-        @syncQueue = new SyncQueue(@postUrl,saveErrorHandler)
+        @syncQueue = new SyncQueue(@postUrl,postSuccessHandler,saveErrorHandler)
+        @syncTimer = setInterval( () => 
+            console.log("in synctimer")
+            console.log("this is " + this)
+            @next()
+        ,30000)
 
     get:(pName,callback) ->         
-
+        if @syncQueue.isHolding(pName) 
+            @inner.get(pName,callback)
+            return
+            
         $.ajax({ 
             type: 'GET', 
             url: @getUrl+pName+".opml",
@@ -84,11 +96,14 @@ class @ServerBasedPageStore
         });        
         
        
-
     save:(page) -> 
         @inner.save(page)
         console.log("Now adding #{page.pageName} to queue")
         @syncQueue.add(page.pageName)
+
+    # this is regularly called on a timer
+    next:() ->
         @syncQueue.next(@inner)
+
 
 
