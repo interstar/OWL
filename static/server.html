@@ -29,9 +29,21 @@
 			var flReadOnly = false, flRenderMode = false;
 			var cmdKeyPrefix = "Ctrl+"; 
 			
-			var pageStore = new ServerBasedPageStore();
-			var currentPage = pageStore.get("HelloWorld");
+			var pageStore = new ServerBasedPageStore("/static/","/put/");
 			var navHistory = new NavHistory();
+						
+			var currentPage;			
+			pageStore.get("HelloWorld", function (page) { currentPage = page; });
+			
+			/*
+			$( document ).ajaxError(function(event, jqXHR, ajaxSettings, thrownError) {
+			    console.log("error");
+			    console.log(event);
+			    console.log(jqXHR);
+			    console.log(ajaxSettings);
+			    console.log(thrownError);
+			});
+			*/
 			
 			function initLocalStorage () {
 				if (localStorage.ctOpmlSaves == undefined) {
@@ -57,7 +69,7 @@
 				    opXmlToOutline (page.body); 
 				    currentPage = page;
 				    $("#navPageName").val(currentPage.pageName);
-				  });
+				  });				
 				}
 
             function goButton() {
@@ -259,7 +271,7 @@
 				self.setInterval (function () {backgroundProcess ()}, 30000); //call every 30 seconds
 				}
 			</script>
-		<link rel="stylesheet" href="./main.css"/>	
+		<link rel="stylesheet" href="./css/main.css"/>	
 		</head>
 	<body>
 

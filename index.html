@@ -30,8 +30,11 @@
 			var cmdKeyPrefix = "Ctrl+"; 
 			
 			var pageStore = new BrowserBasedPageStore();
-			var currentPage = pageStore.get("HelloWorld");
 			var navHistory = new NavHistory();
+			
+			var currentPage;
+			pageStore.get("HelloWorld", function (page) { currentPage = page; });
+			
 			
 			function initLocalStorage () {
 				if (localStorage.ctOpmlSaves == undefined) {
@@ -53,10 +56,12 @@
 			// Navigation et.	
 			function editPage (pageName) {
 			    console.log("Editing page "+pageName);
-				currentPage = pageStore.get(pageName);
-								
-				opXmlToOutline (currentPage.body); 
-				$("#navPageName").val(currentPage.pageName);
+			    
+			    pageStore.get(pageName, function(page) {
+				    opXmlToOutline (page.body); 
+				    currentPage = page;
+				    $("#navPageName").val(currentPage.pageName);
+				  });			    
 				}
 
             function goButton() {
@@ -204,7 +209,7 @@
 				
 			function savePageNow () {
 			    currentPage.body = opOutlineToXml (appPrefs.authorName, appPrefs.authorEmail);
-				pageStore.save(currentPage); 
+				pageStore.save(currentPage,function(x) {}); 
 				localStorage.ctOpmlSaves++;
 				opClearChanged();
 				console.log ("savePageNow: " + currentPage.body.length + " chars.");
@@ -259,7 +264,7 @@
 				self.setInterval (function () {backgroundProcess ()}, 30000); //call every 30 seconds
 				}
 			</script>
-		<link rel="stylesheet" href="./main.css"/>	
+		<link rel="stylesheet" href="./css/main.css"/>	
 		</head>
 	<body>
 

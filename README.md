@@ -21,6 +21,19 @@ link to an outline of the _same name_. It's wiki's [concrete names](http://thoug
 action. (I know! I know! You think this is the dumbest idea you've ever heard. You want to be able to have a distinction between 
 the "real name" and the "display name". But trust me :-) )
 
+Why?
+----
+In my experience, outlines are great for organizing and writing documents, blog posts etc. But at some scale you are going to want to 
+break into multiple outline "files". I have around 8 outlines open in Fargo tabs. That's managable, but it won't scale to 80. Nor, I 
+think, will a drop-down list in a file-menu. OTOH, hyperlinks scale almost indefinately. My wiki, ThoughtStorms, has around 6000 pages. 
+The web has 10 billion or more. And you can still get around them fairly easily with hyperlinks (+ a bit of search). 
+
+
+That's the magic of the "small-world" network structure. Strict hierarchies are great for organizing at a certain scale but it 
+becomes laborious to navigate them when they get too deep or too broad. Most computer file-systems supplement hierarchy with 
+hyperlinks of some kind ("symbolic links" in Unix, "shortcuts" in Windows etc.) Given that we know we're going to want hyperlinks, 
+let's make them as easy and convenient to create as possible rather than second-class citizens.
+
 
 Quick Start 
 -----------
