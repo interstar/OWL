@@ -20,23 +20,13 @@ any piece of text into a link, select it, and click the "Link" button on the nav
 link to an outline of the _same name_. It's wiki's [concrete names](http://thoughtstorms.info/view/concretepagenames) policy in 
 action. (I know! I know! You think this is the dumbest idea you've ever heard. You want to be able to have a distinction between 
 the "real name" and the "display name". But trust me :-) )
-
-Why?
-----
-In my experience, outlines are great for organizing and writing documents, blog posts etc. But at some scale you are going to want to 
-break into multiple outline "files". I have around 8 outlines open in Fargo tabs. That's managable, but it won't scale to 80. Nor, I 
-think, will a drop-down list in a file-menu. OTOH, hyperlinks scale almost indefinately. My wiki, ThoughtStorms, has around 6000 pages. 
-The web has 10 billion or more. And you can still get around them fairly easily with hyperlinks (+ a bit of search). 
+* a very primitive server that lets you save outlines to the local file-system.
 
 
-That's the magic of the "small-world" network structure. Strict hierarchies are great for organizing at a certain scale but it 
-becomes laborious to navigate them when they get too deep or too broad. Most computer file-systems supplement hierarchy with 
-hyperlinks of some kind ("symbolic links" in Unix, "shortcuts" in Windows etc.) Given that we know we're going to want hyperlinks, 
-let's make them as easy and convenient to create as possible rather than second-class citizens.
+Quick Start #1
+--------------
 
-
-Quick Start 
------------
+To see OWL in action in the browser, as quickly as possible, just do this.
 
     git clone https://github.com/interstar/OWL.git owl
     cd owl
@@ -46,9 +36,32 @@ You should now have a copy of OWL running in your browser.
 
 Alternatively, [try it out here.](http://project.thoughtstorms.info/owl/index.html)
 
+WARNING : As with the other Concord examples, your outlines are stored locally in the browser. Don't put too much work into this, it's 
+a demonstration.
+
+Quick Start #2 : Basic Server
+-----------------------------
+There's now a very very basic Python server for OWL. This is intended to run on your own local machine, and allows OPML files to be saved 
+into the local file system.
+
+You'll need to have Python installed on your local machine. The server uses [web.py](http://webpy.org/), a copy of which is included.
+
+You'll need to run a short make script to set up some symbolic links on your machine.
+
+    git clone https://github.com/interstar/OWL.git owl
+    cd owl
+    ./make.sh 
+    python OWLServe.py
+    
+    firefox localhost:8080/static/server.html
+
+
+WARNING : This version of OWL is backing-up pages to the local server. Sometimes if you edit or move around too fast, changes can get lost. 
+
+Drive slowly! And don't forget to report any bugs :-)
+
 Other Issues
 ------------
-WARNING : As with the other Concord examples, your outlines are stored locally in the browser. There's no way to export yet. 
 
 To create a page / outline that doesn't exist yet, just make and follow a link to it, or type the name into the navbar and click Go.
 
@@ -85,4 +98,5 @@ Credits
 -------
 * [Dave Winer](http://scripting.com/) for getting a decent outliner into the browser (at last) and having the generosity to open-source the core.
 * [Ward Cunningham](https://github.com/WardCunningham/) for wiki fact and philosophy.
+* [Aaron Swartz](http://www.rememberaaronsw.com/), author of the web.py module that runs the basic server, and who died fighting for the principle that knowledge should be a free and open-resource for all.
 
