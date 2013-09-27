@@ -13,9 +13,9 @@ urls = (
 
 class Index ():
     
-    def GET(self):
-        print "OWL Service is running"
-        web.internalerror = web.debugerror
+    def GET(self):        
+        web.redirect(web.ctx.home+'/static/server.html') 
+        #web.internalerror = web.debugerror
 
 
 class Save :
