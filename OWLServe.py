@@ -28,6 +28,10 @@ class Save :
             f = open("./static/%s.opml"%pageName,"w")
             f.write(body)
             f.close()
+            if form.text :
+                f = open("./exports/text/%s.txt"%pageName,"w")
+                f.write(form.text)
+                f.close()
             print "OK"
             
         except Exception, e :

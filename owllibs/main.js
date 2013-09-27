@@ -190,6 +190,9 @@
 				
 			function savePageNow () {
 			    currentPage.body = opOutlineToXml (appPrefs.authorName, appPrefs.authorEmail);
+			    
+			    currentPage.text = ($(defaultUtilsOutliner).concord ().op.outlineToText());
+			     
 				pageStore.save(currentPage,function(x) {}); 
 				localStorage.ctOpmlSaves++;
 				opClearChanged();

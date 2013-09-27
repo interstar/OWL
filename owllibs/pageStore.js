@@ -10,6 +10,7 @@
       this.body = body;
       this.created = new Date().toString();
       this.saved = "";
+      this.text = "";
     }
 
     Page.prototype.toString = function() {
@@ -97,7 +98,8 @@
             url: _this.postUrl + pName,
             data: {
               "pageName": pName,
-              "body": page.body
+              "body": page.body,
+              "text": page.text
             },
             success: function(data) {
               return _this.postSuccessHandler(pName);

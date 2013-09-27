@@ -1,9 +1,10 @@
 
 
 class @Page
-    constructor:(@pageName,@body) ->
+    constructor:(@pageName,@body) ->    
         @created = new Date().toString()
         @saved = ""
+        @text = ""
     
     toString:() ->
         return "#{@pageName} \n #{@body} \n #{@created} \n #{@saved} "
@@ -56,7 +57,7 @@ class SyncQueue
                 $.ajax({
                     type : 'POST',
                     url : @postUrl+pName,
-                    data : {"pageName":pName, "body":page.body},
+                    data : {"pageName":pName, "body":page.body, "text":page.text},
                     success : (data) =>
                         @postSuccessHandler(pName)
                     ,
