@@ -35,16 +35,16 @@
 
     BrowserBasedPageStore.prototype.isDirty = function(pName) {
       var s;
-      s = localStorage.getItem(x(pName));
+      s = localStorage.getItem(this.x(pName));
       return s === "true";
     };
 
     BrowserBasedPageStore.prototype.setDirty = function(pName) {
-      return localStorage.setItem(x(pName), "true");
+      return localStorage.setItem(this.x(pName), "true");
     };
 
     BrowserBasedPageStore.prototype.setClean = function(pName) {
-      return localStorage.setItem(x(pName), "false");
+      return localStorage.setItem(this.x(pName), "false");
     };
 
     BrowserBasedPageStore.prototype.hasName = function(pName) {

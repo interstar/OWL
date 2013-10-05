@@ -16,14 +16,14 @@ class @BrowserBasedPageStore
     x:(pName) -> "fpt.ps.X."+pName
     
     isDirty:(pName) ->        
-        s = localStorage.getItem(x(pName))
+        s = localStorage.getItem(@x(pName))
         return (s == "true")
         
     setDirty:(pName) ->
-        localStorage.setItem(x(pName),"true")
+        localStorage.setItem(@x(pName),"true")
     
     setClean:(pName) ->
-        localStorage.setItem(x(pName),"false")
+        localStorage.setItem(@x(pName),"false")
 
     hasName:(pName) ->
         s = localStorage.getItem(@k(pName))        
@@ -98,7 +98,7 @@ class @ServerBasedPageStore
     get:(pName,callback) ->
         if @inner.isDirty(pName)
             @inner.get(pName,callback)
-            return
+            return            
                         
         $.ajax({ 
             type: 'GET', 
