@@ -29,6 +29,24 @@
       return "fpt.pageStore." + pName;
     };
 
+    BrowserBasedPageStore.prototype.x = function(pName) {
+      return "fpt.ps.X." + pName;
+    };
+
+    BrowserBasedPageStore.prototype.isDirty = function(pName) {
+      var s;
+      s = localStorage.getItem(x(pName));
+      return s === "true";
+    };
+
+    BrowserBasedPageStore.prototype.setDirty = function(pName) {
+      return localStorage.setItem(x(pName), "true");
+    };
+
+    BrowserBasedPageStore.prototype.setClean = function(pName) {
+      return localStorage.setItem(x(pName), "false");
+    };
+
     BrowserBasedPageStore.prototype.hasName = function(pName) {
       var s;
       s = localStorage.getItem(this.k(pName));
@@ -50,7 +68,8 @@
     };
 
     BrowserBasedPageStore.prototype.set = function(pName, page) {
-      return localStorage.setItem(this.k(pName), JSON.stringify(page));
+      localStorage.setItem(this.k(pName), JSON.stringify(page));
+      return this.setDirty(pName);
     };
 
     BrowserBasedPageStore.prototype.save = function(page, errorCallback) {
@@ -64,7 +83,8 @@
 
   SyncQueue = (function() {
 
-    function SyncQueue(postUrl, postSuccessHandler, errorHandler) {
+    function SyncQueue(pageStore, postUrl, postSuccessHandler, errorHandler) {
+      this.pageStore = pageStore;
       this.postUrl = postUrl;
       this.postSuccessHandler = postSuccessHandler;
       this.errorHandler = errorHandler;
@@ -102,6 +122,7 @@
               "text": page.text
             },
             success: function(data) {
+              _this.pageStore.setClean(pName);
               return _this.postSuccessHandler(pName);
             },
             error: function(xmlHttpRequest) {
@@ -126,7 +147,7 @@
       this.getUrl = getUrl;
       this.postUrl = postUrl;
       this.inner = new BrowserBasedPageStore();
-      this.syncQueue = new SyncQueue(this.postUrl, postSuccessHandler, saveErrorHandler);
+      this.syncQueue = new SyncQueue(this, this.postUrl, postSuccessHandler, saveErrorHandler);
       this.syncTimer = setInterval(function() {
         console.log("in synctimer");
         console.log("this is " + _this);
@@ -136,7 +157,7 @@
 
     ServerBasedPageStore.prototype.get = function(pName, callback) {
       var _this = this;
-      if (this.syncQueue.isHolding(pName)) {
+      if (this.inner.isDirty(pName)) {
         this.inner.get(pName, callback);
         return;
       }
@@ -152,6 +173,10 @@
           return _this.inner.get(pName, callback);
         }
       });
+    };
+
+    ServerBasedPageStore.prototype.setClean = function(pName) {
+      return this.inner.setClean(pName);
     };
 
     ServerBasedPageStore.prototype.save = function(page) {

@@ -13,6 +13,18 @@ class @Page
 class @BrowserBasedPageStore
     k:(pName) -> "fpt.pageStore."+pName
 
+    x:(pName) -> "fpt.ps.X."+pName
+    
+    isDirty:(pName) ->        
+        s = localStorage.getItem(x(pName))
+        return (s == "true")
+        
+    setDirty:(pName) ->
+        localStorage.setItem(x(pName),"true")
+    
+    setClean:(pName) ->
+        localStorage.setItem(x(pName),"false")
+
     hasName:(pName) ->
         s = localStorage.getItem(@k(pName))        
         if s?
@@ -27,7 +39,10 @@ class @BrowserBasedPageStore
             page = new Page(pName,initialOpmltext)
         callback(page)
         
-    set:(pName,page) -> localStorage.setItem(@k(pName),JSON.stringify(page))
+    set:(pName,page) -> 
+        localStorage.setItem(@k(pName),JSON.stringify(page))
+        # tell that we've changed this item in browser store
+        @setDirty(pName)
     
     save:(page,errorCallback) -> 
         page.saved = new Date().toString()
@@ -35,7 +50,7 @@ class @BrowserBasedPageStore
         
 
 class SyncQueue
-    constructor:(@postUrl,@postSuccessHandler,@errorHandler) ->
+    constructor:(@pageStore,@postUrl,@postSuccessHandler,@errorHandler) ->
         @queue = []
         
     add:(pageName) ->
@@ -59,6 +74,7 @@ class SyncQueue
                     url : @postUrl+pName,
                     data : {"pageName":pName, "body":page.body, "text":page.text},
                     success : (data) =>
+                        @pageStore.setClean(pName)
                         @postSuccessHandler(pName)
                     ,
                     error   : (xmlHttpRequest) =>
@@ -72,18 +88,18 @@ class SyncQueue
 class @ServerBasedPageStore
     constructor:(@getUrl,@postUrl,postSuccessHandler,saveErrorHandler) ->
         @inner = new BrowserBasedPageStore()
-        @syncQueue = new SyncQueue(@postUrl,postSuccessHandler,saveErrorHandler)
+        @syncQueue = new SyncQueue(this,@postUrl,postSuccessHandler,saveErrorHandler)
         @syncTimer = setInterval( () => 
             console.log("in synctimer")
             console.log("this is " + this)
             @next()
         ,10000)
 
-    get:(pName,callback) ->         
-        if @syncQueue.isHolding(pName) 
+    get:(pName,callback) ->
+        if @inner.isDirty(pName)
             @inner.get(pName,callback)
             return
-            
+                        
         $.ajax({ 
             type: 'GET', 
             url: @getUrl+pName+".opml",
@@ -96,6 +112,8 @@ class @ServerBasedPageStore
                 @inner.get(pName,callback)
         });        
         
+
+    setClean:(pName) -> @inner.setClean(pName)
        
     save:(page) -> 
         @inner.save(page)
