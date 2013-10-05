@@ -77,7 +77,7 @@ class @ServerBasedPageStore
             console.log("in synctimer")
             console.log("this is " + this)
             @next()
-        ,30000)
+        ,10000)
 
     get:(pName,callback) ->         
         if @syncQueue.isHolding(pName) 

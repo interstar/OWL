@@ -22,8 +22,8 @@
 			</script>
 		<link rel="stylesheet" href="./css/main.css"/>	
 		</head>
-	<body>
 
+	<body>
 		<div class="divMenubar" id="idMenubar">
 			<div class="topbar-wrapper" style="z-index: 0; opacity: 1;">
 				<div class="navbar navbar-fixed-top" data-dropdown="dropdown">
@@ -98,7 +98,8 @@
                 <input  id="navPageName" />
                 <button class="button" id="goButton">Go!</button>
                 <button class="button" id="makeLinkButton">Link</button>
-                <button class="button" id="saveButton">Force Save</button-->
+                <button class="button" id="saveButton">Force Save</button>
+                <!--button class="button" id="markdownExportButton">Export with Markdown</button-->
                 </div>
 
             <div>&nbsp;</div>
@@ -106,9 +107,15 @@
 			<div id="outliner">
 				</div>
 			</div>
+			
 		<script>
 		
-				
+			function markdownExport() {
+			    $.get("/md/"+currentPage.pageName, function(data) {
+			        console.log(data);
+			    });
+			}
+			
 			function startup () {
 				initLocalStorage ();
 				$("#idMenuProductName").text (appConsts.productname);
@@ -130,9 +137,11 @@
 				$("#backButton").click(function(event) { backButton();  });
 				$("#forwardButton").click(function(event) { forwardButton();  });
 
-				$("#makeLinkButton").click(function(event) { makeLink(); });				
+				$("#makeLinkButton").click(function(event) { makeLink(); });
 				$("#forceSaveButton").click(function(event) { savePageNow(); });
 			
+				$("#markdownExportButton").click(function(event) { markdownExport(); });
+
 			    path = window.location.pathname + window.location.hash;
 			    console.log(path);
 			    console.l
@@ -145,7 +154,7 @@
 			    console.log(pageName);
 
 					
-			    pageStore = new ServerBasedPageStore("/static/","/put/",function(pName) { 
+			    pageStore = new ServerBasedPageStore("/static/pages/","/put/",function(pName) { 
 			        console.log("callback from saving " + pName);			    
 			    }, function(){});
 

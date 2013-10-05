@@ -131,7 +131,7 @@
         console.log("in synctimer");
         console.log("this is " + _this);
         return _this.next();
-      }, 30000);
+      }, 10000);
     }
 
     ServerBasedPageStore.prototype.get = function(pName, callback) {

@@ -1,6 +1,7 @@
 """
-Now using Aaron Swartz's web.py
+Based on Aaron Swartz's web.py (http://www.aaronsw.com/)
 """
+
 
 import web
 
@@ -9,6 +10,7 @@ urls = (
             '/put/(.*)'  , 'Save'
 )
 
+pagedir = '/static/pages/'
 
 
 class Index ():
@@ -25,7 +27,7 @@ class Save :
             form = web.input()
             pageName = form.pageName
             body = form.body
-            f = open("./static/%s.opml"%pageName,"w")
+            f = open(".%s%s.opml"%(pagedir,pageName),"w")
             f.write(body)
             f.close()
             if form.text :
@@ -38,7 +40,7 @@ class Save :
             print "%s" % e        
         #web.redirect(web.ctx.home+'/static/'+pName) 
 
-           
+
 if __name__ == '__main__':
     web.run(urls, web.reloader)
 
