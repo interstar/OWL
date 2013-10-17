@@ -117,7 +117,7 @@
 			}
 			
 			function startup () {
-				initLocalStorage ();
+			
 				$("#idMenuProductName").text (appConsts.productname);
 				$("#idProductVersion").text ("v" + appConsts.version);
 				//init menu keystrokes
@@ -154,7 +154,7 @@
 			    console.log(pageName);
 
 					
-			    pageStore = new ServerBasedPageStore("/static/pages/","/put/",function(pName) { 
+			    pageStore = new ServerBasedPageStore("/get/","/put/",function(pName) { 
 			        console.log("callback from saving " + pName);			    
 			    }, function(){});
 

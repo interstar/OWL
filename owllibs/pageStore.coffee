@@ -49,80 +49,36 @@ class @BrowserBasedPageStore
         @set(page.pageName,page)
         
 
-class SyncQueue
-    constructor:(@pageStore,@postUrl,@postSuccessHandler,@errorHandler) ->
-        @queue = []
-        
-    add:(pageName) ->
-        if pageName in @queue 
-            return
-        @queue.push(pageName)
-        console.log(@queue)
-        
-    isHolding:(pageName) -> pageName in @queue
-        
-    next:(pageStore) ->
-        console.log("in queue next ... url is #{@postUrl}")
-        while @queue.length > 0
-            pName = @queue.pop()
-            pageStore.get(pName,(page) =>
-                console.log("POSTING " + pName)
-                console.log(@postUrl+pName)
-                
-                $.ajax({
-                    type : 'POST',
-                    url : @postUrl+pName,
-                    data : {"pageName":pName, "body":page.body, "text":page.text},
-                    success : (data) =>
-                        @pageStore.setClean(pName)
-                        @postSuccessHandler(pName)
-                    ,
-                    error   : (xmlHttpRequest) =>
-                            console.log("ERROR IN POST " + pName)
-                            console.log(xmlHttpRequest)
-                            @add(pName)
-                })
-                
-            )
-
 class @ServerBasedPageStore
-    constructor:(@getUrl,@postUrl,postSuccessHandler,saveErrorHandler) ->
-        @inner = new BrowserBasedPageStore()
-        @syncQueue = new SyncQueue(this,@postUrl,postSuccessHandler,saveErrorHandler)
-        @syncTimer = setInterval( () => 
-            console.log("in synctimer")
-            console.log("this is " + this)
-            @next()
-        ,10000)
-
-    get:(pName,callback) ->
-        if @inner.isDirty(pName)
-            @inner.get(pName,callback)
-            return            
-                        
+    constructor:(@getUrl,@postUrl,@postSuccessHandler) ->
+        
+    get:(pName,callback) ->                            
         $.ajax({ 
             type: 'GET', 
-            url: @getUrl+pName+".opml",
+            url: @getUrl+pName,
             success: (data) ->
                 console.log(data)
                 callback(new Page(pName,data))
             ,    
             error: (xmlHttpRequest) =>
                 console.log("ERROR IN get " + pName)                
-                @inner.get(pName,callback)
+               
         });        
         
-
-    setClean:(pName) -> @inner.setClean(pName)
        
-    save:(page) -> 
-        @inner.save(page)
-        console.log("Now adding #{page.pageName} to queue")
-        @syncQueue.add(page.pageName)
-
-    # this is regularly called on a timer
-    next:() ->
-        @syncQueue.next(@inner)
+    save:(page,saveErrorHandler) ->
+        $.ajax({
+            type : 'POST',
+            url : @postUrl+page.pageName,
+            data : {"pageName":page.pageName, "body":page.body, "text":page.text},
+            success : (data) =>
+                @postSuccessHandler(page.pageName)
+            ,
+            error   : (xmlHttpRequest) =>
+                    console.log("ERROR IN POST " + page.pageName)
+                    console.log(xmlHttpRequest)
+                    saveErrorHandler(xmlHttpRequest)
+        })
 
 
 

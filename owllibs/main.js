@@ -16,18 +16,6 @@
 			var navHistory = new NavHistory();
 
 			
-			
-			function initLocalStorage () {
-				if (localStorage.ctOpmlSaves == undefined) {
-					localStorage.ctOpmlSaves = 0;
-					}
-				if (localStorage.whenLastSave == undefined) {
-					localStorage.whenLastSave = new Date ().toString ();
-					}
-				if (localStorage.flTextMode == undefined) {
-					localStorage.flTextMode = "true";
-					}
-				}
 				
 			function setInclude () { //used to test includes
 				opSetOneAtt ("type", "include");
@@ -46,13 +34,14 @@
 				}
 
             function goButton() {
+                savePageNow();
 			    var pageName = $("#navPageName").val();			    
                 forwardTo(pageName);			    
             }
 
             function forwardTo(pageName) {
-                navHistory.newForward(pageName);
-			    savePageNow();
+                savePageNow();
+                navHistory.newForward(pageName);			    
 			    editPage(pageName);
             }
 
@@ -193,8 +182,8 @@
 			    
 			    currentPage.text = ($(defaultUtilsOutliner).concord ().op.outlineToText());
 			     
-				pageStore.save(currentPage,function(x) {}); 
-				localStorage.ctOpmlSaves++;
+				pageStore.save(currentPage,function(x) { console.log("ERROR " + x); }); 
+				
 				opClearChanged();
 				console.log ("savePageNow: " + currentPage.body.length + " chars.");
 				}

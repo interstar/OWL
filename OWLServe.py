@@ -6,12 +6,14 @@ Based on Aaron Swartz's web.py (http://www.aaronsw.com/)
 import web
 
 urls = (
-            '/'          , 'Index',
-            '/put/(.*)'  , 'Save'
+            '/'             , 'Index',
+            '/get/(.*)'     , 'Get',
+            '/put/(.*)'     , 'Save'
 )
 
-pagedir = '/static/pages/'
+pagedir = './static/pages/'
 
+def fName(pName) : return "%s%s.opml"%(pagedir,pName)
 
 class Index ():
     
@@ -19,6 +21,13 @@ class Index ():
         web.redirect(web.ctx.home+'/static/server.html') 
         #web.internalerror = web.debugerror
 
+class Get :
+    def GET(self,pName) :
+        try :
+            f = open(fName(pName))
+            print f.read()            
+        except Exception, e :
+            print "%s" % e
 
 class Save :
 
@@ -27,7 +36,7 @@ class Save :
             form = web.input()
             pageName = form.pageName
             body = form.body
-            f = open(".%s%s.opml"%(pagedir,pageName),"w")
+            f = open(fName(pName),"w")
             f.write(body)
             f.close()
             if form.text :
@@ -38,7 +47,7 @@ class Save :
             
         except Exception, e :
             print "%s" % e        
-        #web.redirect(web.ctx.home+'/static/'+pName) 
+        
 
 
 if __name__ == '__main__':
