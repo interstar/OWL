@@ -46,7 +46,7 @@ into the local file system.
 
 You'll need to have Python installed on your local machine. The server uses [web.py](http://webpy.org/), a copy of which is included.
 
-You'll need to run a short make script to set up some symbolic links on your machine.
+You'll need to run a short make script to set up some symbolic links on your machine and create the directory for pages to be stored.
 
     git clone https://github.com/interstar/OWL.git owl
     cd owl
@@ -58,9 +58,7 @@ You'll need to run a short make script to set up some symbolic links on your mac
 
 Your OPML pages will be stored in the static subdirectory of the main owl directory.
 
-WARNING : This version of OWL is backing-up pages to the local server. Sometimes if you edit or move around too fast, changes can get lost. 
-
-Drive slowly! And don't forget to report any bugs :-)
+Have fun. Be productive. And please report any bugs that interfere with either of these activities :-)
 
 Other Issues
 ------------
