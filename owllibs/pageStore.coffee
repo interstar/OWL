@@ -57,12 +57,20 @@ class @ServerBasedPageStore
             type: 'GET', 
             url: @getUrl+pName,
             success: (data) ->
-                console.log(data)
-                callback(new Page(pName,data))
+                console.log("in success")
+                xmlDoc = $($.parseXML(data))                
+                msg = xmlDoc.find("message").html()
+
+                if msg == "MISSING FILE"
+                    console.log("Page #{pName} doesn't exist so creating")
+                    callback(new Page(pName,initialOpmltext))
+                else 
+                    callback(new Page(pName,data))
             ,    
-            error: (xmlHttpRequest) =>
-                console.log("ERROR IN get " + pName)                
-               
+            error: (response) =>
+                console.log("ERROR IN get " + pName)
+                console.log(response)
+                
         });        
         
        

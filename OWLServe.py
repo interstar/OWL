@@ -27,7 +27,10 @@ class Get :
             f = open(fName(pName))
             print f.read()            
         except Exception, e :
-            print "%s" % e
+            if "No such file or directory:" in "%s"%e :
+                print "<xml><message>MISSING FILE</message></xml>"
+            else :
+                print "%s" % e
 
 class Save :
 

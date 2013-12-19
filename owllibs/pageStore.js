@@ -93,11 +93,20 @@
         type: 'GET',
         url: this.getUrl + pName,
         success: function(data) {
-          console.log(data);
-          return callback(new Page(pName, data));
+          var msg, xmlDoc;
+          console.log("in success");
+          xmlDoc = $($.parseXML(data));
+          msg = xmlDoc.find("message").html();
+          if (msg === "MISSING FILE") {
+            console.log("Page " + pName + " doesn't exist so creating");
+            return callback(new Page(pName, initialOpmltext));
+          } else {
+            return callback(new Page(pName, data));
+          }
         },
-        error: function(xmlHttpRequest) {
-          return console.log("ERROR IN get " + pName);
+        error: function(response) {
+          console.log("ERROR IN get " + pName);
+          return console.log(response);
         }
       });
     };
