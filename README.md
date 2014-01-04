@@ -93,6 +93,12 @@ The patch is recorded in the file called concord.js.diff and is this :
 
 I'd like to find a way to avoid having to do this. When I do, I'll revert to using the default Concord as a submodule. 
 
+OWL on Android
+--------------
+Want to run OWL on your Android tablet? There's now a project for that : [OwlDroid](https://github.com/interstar/OWLdroid)
+
+Pretty experimental at the moment, with some serious flaws. BUT it works! And I'm using it daily as my personal note-taking, todo, app. for the last 4 months or so.
+
 
 Credits
 -------
