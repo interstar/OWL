@@ -15,7 +15,7 @@
 				"productname": "Hello",
 				"productnameForDisplay": "Hello Outliner",
 				"domain": "hello.blorkmark.com", 
-				"version": "0.50"
+				"version": "0.52"
 				}
 			var appPrefs = {
 				"outlineFont": "Arial", "outlineFontSize": 16, "outlineLineHeight": 24,
@@ -31,6 +31,8 @@
 			var urlConcordUtilsSource = "http://raw.github.com/scripting/concord/master/opml/concordUtils.opml";
 			var urlHelloOutliner = "http://raw.github.com/scripting/concord/master/example1/source.opml";
 			var urlExample0 = "http://raw.github.com/scripting/concord/master/example0/source.opml";
+			var urlExample2 = "http://static.smallpicture.com/tacoma/wo/admin/2013/09/18/archive056.opml";
+			var urlWorknotes = "http://static.smallpicture.com/tacoma/wo/admin/2013/09/18/archive057.opml";
 			
 			function initLocalStorage () {
 				if (localStorage.savedOpmltext == undefined) {
@@ -98,12 +100,12 @@
 						}
 				//include nodes
 					if ((type == "include") && (url != undefined)) {
-						op.deleteSubs ();
-						op.clearChanged ();
+						parent.deleteSubs ();
+						parent.clearChanged ();
 						readText (url, function (opmltext, op) {
 							op.insertXml (opmltext, right); 
 							op.clearChanged ();
-							}, op, true);
+							}, parent, true);
 						}
 				}
 			function opInsertCallback (headline) { 
@@ -182,7 +184,7 @@
 						liContent = liContent.replace ("Cmd-", cmdKeyPrefix);
 						li.html (liContent);
 						});
-				setOutlinerPrefs ("#outliner", false, false);
+				setOutlinerPrefs ("#outliner", true, false); //9/20/13 by DW -- change initial value for renderMode from false to true
 				opSetFont (appPrefs.outlineFont, appPrefs.outlineFontSize, appPrefs.outlineLineHeight); 
 				opXmlToOutline (localStorage.savedOpmltext);
 				self.setInterval (function () {backgroundProcess ()}, 1000); //call every second
@@ -298,12 +300,16 @@
 								<li class="dropdown" id="idSourceMenu"> 
 									<a href="#" class="dropdown-toggle" data-toggle="dropdown">Source&nbsp;<b class="caret"></b></a>
 									<ul class="dropdown-menu">
+										<li><a onclick="editSource (urlWorknotes);">Worknotes</a></li>
+										<li class="divider"></li>
 										<li><a onclick="editSource (urlExample0);">Example 0</a></li>
-										<li><a onclick="editSource (urlHelloOutliner);">Hello Outliner</a></li>
+										<li><a onclick="editSource (urlHelloOutliner);">Example 1</a></li>
+										<li><a onclick="editSource (urlExample2);">Example 2</a></li>
 										<li class="divider"></li>
 										<li><a onclick="editSource (urlConcordSource);">Concord</a></li>
 										<li><a onclick="editSource (urlConcordCssSource);">Concord CSS</a></li>
 										<li><a onclick="editSource (urlConcordUtilsSource);">Concord Utils</a></li>
+										<li class="divider"></li>
 										<li><a onclick="editSource (urlConcordDocs);">Concord Docs</a></li>
 										</ul>
 									</li>
