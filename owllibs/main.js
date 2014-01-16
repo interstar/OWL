@@ -2,7 +2,7 @@
 			var appConsts = {
 				"productname": "OWL",
 				"productnameForDisplay": "OWL",  
-				"version": "0.50"
+				"version": "0.1"
 				}
 			var appPrefs = {
 				"outlineFont": "Arial", "outlineFontSize": 16, "outlineLineHeight": 24,
@@ -58,7 +58,7 @@
 		    }
 		    
 		    
-		
+		    // Original Concord code
 			function nukeDom () {
 				var summit, htmltext = "", indentlevel = 0;
 				$(defaultUtilsOutliner).concord ().op.visitToSummit (function (headline) {
@@ -168,7 +168,7 @@
 					});
 				}
 
-
+            // My functions           
 
             function makeLink() {
                 var concordOp = $(defaultUtilsOutliner).concord().op;
@@ -187,6 +187,15 @@
 				opClearChanged();
 				console.log ("savePageNow: " + currentPage.body.length + " chars.");
 				}
+				
+				
+
+            function opDeleteNode() {				
+                var concordOp = $(defaultUtilsOutliner).concord().op;
+                if(!concordOp.inTextMode()) {
+                    concordOp.deleteLine();
+                }
+            }
 				
 			function backgroundProcess () {
 				if (opHasChanged ()) {

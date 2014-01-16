@@ -31,7 +31,22 @@
 						<div class="container">
 							<a class="brand" href="index.html"><span id="idMenuProductName"></span></a>
 							<ul class="nav" id="idMainMenuList">
-								<li class="dropdown" id="idOutlinerMenu"> 
+							    <li class="dropdown" id="idQuickMenu">
+							        <a href="#" class="dropdown-toggle" data-toggle="dropdown">Quick&nbsp;<b class="caret"></b></a>
+							        <ul class="dropdown-menu">
+							            <li>							            
+							            &nbsp;
+				                        <button class="button" id="upButton">&#8593;</button>
+                                        <button class="button" id="downButton">&#8595;</button>
+                                        <button class="button" id="leftButton">&#8592;</button>
+                                        <button class="button" id="rightButton">&#8594;</button>
+                                        </li>
+										<li class="divider"></li>
+                                        <li><a onclick="opDeleteNode();">Delete Node</a></li>
+							        </ul>       
+							    </li>
+
+								<li class="dropdown" id="idOutlinerMenu"> 								
 									<a href="#" class="dropdown-toggle" data-toggle="dropdown">Outliner&nbsp;<b class="caret"></b></a>
 									<ul class="dropdown-menu">
 										<li><a onclick="opExpand ();"><span class="menuKeystroke">Cmd-,</span>Expand</a></li>
@@ -47,6 +62,9 @@
 										<li><a onclick="opReorg (down, 1);"><span class="menuKeystroke">Cmd-D</span>Move Down</a></li>
 										<li><a onclick="opReorg (left, 1);"><span class="menuKeystroke">Cmd-L</span>Move Left</a></li>
 										<li><a onclick="opReorg (right, 1);"><span class="menuKeystroke">Cmd-R</span>Move Right</a></li>
+										
+										<li class="divider"></li>
+										
 										
 										<li class="divider"></li>
 										<li><a onclick="opPromote ();"><span class="menuKeystroke">Cmd-[</span>Promote</a></li>
@@ -72,8 +90,7 @@
 									    
 							        </ul>
 							        </li>
-								    
-			
+
 								</ul>
 							<ul class="nav pull-right">
 								<li>
@@ -92,14 +109,17 @@
             <div id="alerts">
             </div>
 
+
             <div class="fptNavBar">
                 <button class="button" id="backButton">&lt;</button>
                 <button class="button" id="forwardButton">&gt;</button>
                 <input  id="navPageName" />
                 <button class="button" id="goButton">Go!</button>
                 <button class="button" id="makeLinkButton">Link</button>
+                
+                
                 <button class="button" id="saveButton">Force Save</button>
-                <!--button class="button" id="markdownExportButton">Export with Markdown</button-->
+   
                 </div>
 
             <div>&nbsp;</div>
@@ -137,9 +157,16 @@
 				$("#backButton").click(function(event) { backButton();  });
 				$("#forwardButton").click(function(event) { forwardButton();  });
 
+
 				$("#makeLinkButton").click(function(event) { makeLink(); });
-				$("#forceSaveButton").click(function(event) { savePageNow(); });
-			
+				
+				$("#upButton").click(function(event)   { opReorg (up, 1); });
+				$("#downButton").click(function(event) { opReorg (down, 1); });
+				$("#leftButton").click(function(event)   { opReorg (left, 1); });
+				$("#rightButton").click(function(event)   { opReorg (right, 1); });
+				
+				
+				$("#forceSaveButton").click(function(event) { savePageNow(); });			
 				$("#markdownExportButton").click(function(event) { markdownExport(); });
 
 			    path = window.location.pathname + window.location.hash;
