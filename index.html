@@ -1,25 +1,31 @@
 <html>
 	<head>
-		<title>FPT</title>
-		<meta name="copyright" content="Copyright 2013, Small Picture, Inc.">
+		<title>OWL-FPT</title>
+		<meta name="copyright" content="Copyright 2013-2014, Synaesmedia (Based on parts by Small Picture Ltd.)">
+
+        <!-- Basic Libraries -->
 		<script src="./forked_concord/libraries/jquery-1.9.1.min.js"></script>  
 		<link href="./forked_concord/libraries/bootstrap.css" rel="stylesheet">
 		<script src="./forked_concord/libraries/bootstrap.min.js"></script>
 		
+		<!-- Concord -->
 		<link rel="stylesheet" href="./forked_concord/concord.css"/>
 		<script src="./forked_concord/concord.js"></script>
 		<script src="./forked_concord/concordUtils.js"></script>
-		
-		<script src="./owllibs/pageStore.js"></script>
-		<script src="./owllibs/navHistory.js"></script>
-		<script src="./owllibs/main.js"></script>
-		
 		<link href="http://netdna.bootstrapcdn.com/font-awesome/3.2.1/css/font-awesome.css" rel="stylesheet">
 		
-		<link rel="stylesheet" href="./css/main.css"/>	
-		</head>
-	<body>
+		<!-- OWL -->
+		<script src="./owllibs/pageStore.js"></script>
+		<script src="./owllibs/navHistory.js"></script>
+		<script src="./owllibs/main.js"></script>			
+		<link rel="stylesheet" href="./css/main.css"/>
+		
+		<script src="./owllibs/setup.js"></script>
+		<script src="./local_setup.js"></script>
+				
+    </head>
 
+	<body>
 		<div class="divMenubar" id="idMenubar">
 			<div class="topbar-wrapper" style="z-index: 0; opacity: 1;">
 				<div class="navbar navbar-fixed-top" data-dropdown="dropdown">
@@ -27,7 +33,22 @@
 						<div class="container">
 							<a class="brand" href="index.html"><span id="idMenuProductName"></span></a>
 							<ul class="nav" id="idMainMenuList">
-								<li class="dropdown" id="idOutlinerMenu"> 
+							    <li class="dropdown" id="idQuickMenu">
+							        <a href="#" class="dropdown-toggle" data-toggle="dropdown">Quick&nbsp;<b class="caret"></b></a>
+							        <ul class="dropdown-menu">
+							            <li>							            
+							            &nbsp;
+				                        <button class="button" id="upButton">&#8593;</button>
+                                        <button class="button" id="downButton">&#8595;</button>
+                                        <button class="button" id="leftButton">&#8592;</button>
+                                        <button class="button" id="rightButton">&#8594;</button>
+                                        </li>
+										<li class="divider"></li>
+                                        <li><a onclick="opDeleteNode();">Delete Node</a></li>
+							        </ul>       
+							    </li>
+
+								<li class="dropdown" id="idOutlinerMenu"> 								
 									<a href="#" class="dropdown-toggle" data-toggle="dropdown">Outliner&nbsp;<b class="caret"></b></a>
 									<ul class="dropdown-menu">
 										<li><a onclick="opExpand ();"><span class="menuKeystroke">Cmd-,</span>Expand</a></li>
@@ -43,6 +64,9 @@
 										<li><a onclick="opReorg (down, 1);"><span class="menuKeystroke">Cmd-D</span>Move Down</a></li>
 										<li><a onclick="opReorg (left, 1);"><span class="menuKeystroke">Cmd-L</span>Move Left</a></li>
 										<li><a onclick="opReorg (right, 1);"><span class="menuKeystroke">Cmd-R</span>Move Right</a></li>
+										
+										<li class="divider"></li>
+										
 										
 										<li class="divider"></li>
 										<li><a onclick="opPromote ();"><span class="menuKeystroke">Cmd-[</span>Promote</a></li>
@@ -68,8 +92,7 @@
 									    
 							        </ul>
 							        </li>
-								    
-			
+
 								</ul>
 							<ul class="nav pull-right">
 								<li>
@@ -92,7 +115,10 @@
                 <input  id="navPageName" />
                 <button class="button" id="goButton">Go!</button>
                 <button class="button" id="makeLinkButton">Link</button>
-                <!--button class="button" id="testButton">Test</button-->
+                
+                
+              
+   
                 </div>
 
             <div>&nbsp;</div>
@@ -125,7 +151,15 @@
 
 				$("#makeLinkButton").click(function(event) { makeLink(); });				
 				
-			
+				$("#upButton").click(function(event)   { opReorg (up, 1); });
+				$("#downButton").click(function(event) { opReorg (down, 1); });
+				$("#leftButton").click(function(event)   { opReorg (left, 1); });
+				$("#rightButton").click(function(event)   { opReorg (right, 1); });
+				
+				
+				$("#forceSaveButton").click(function(event) { savePageNow(); });			
+				$("#markdownExportButton").click(function(event) { markdownExport(); });
+
 			    path = window.location.pathname + window.location.hash;
 			    console.log(path);
 			    console.l
@@ -141,11 +175,11 @@
 			    pageStore.get("HelloWorld", function (page) { currentPage = page; });
 
 				editPage (pageName);
-				navHistory.newForward(pageName);				
+				navHistory.newForward(pageName);
 				
 				self.setInterval (function () {backgroundProcess ()}, 30000); //call every 30 seconds
 				}
-		
+
 		
 			$(document).ready (function () {
 				startup ();

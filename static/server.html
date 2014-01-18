@@ -1,27 +1,29 @@
 <html>
 	<head>
-		<title>FPT</title>
-		<meta name="copyright" content="Copyright 2013, Small Picture, Inc.">
+		<title>OWL-FPT</title>
+		<meta name="copyright" content="Copyright 2013-2014, Synaesmedia (Based on parts by Small Picture Ltd.)">
+
+        <!-- Basic Libraries -->
 		<script src="./forked_concord/libraries/jquery-1.9.1.min.js"></script>  
 		<link href="./forked_concord/libraries/bootstrap.css" rel="stylesheet">
 		<script src="./forked_concord/libraries/bootstrap.min.js"></script>
 		
+		<!-- Concord -->
 		<link rel="stylesheet" href="./forked_concord/concord.css"/>
 		<script src="./forked_concord/concord.js"></script>
 		<script src="./forked_concord/concordUtils.js"></script>
-		
-		<script src="./owllibs/pageStore.js"></script>
-		<script src="./owllibs/navHistory.js"></script>
-		<script src="./owllibs/main.js"></script>
-		
-		
 		<link href="http://netdna.bootstrapcdn.com/font-awesome/3.2.1/css/font-awesome.css" rel="stylesheet">
 		
-		<script>
-			
-			</script>
-		<link rel="stylesheet" href="./css/main.css"/>	
-		</head>
+		<!-- OWL -->
+		<script src="./owllibs/pageStore.js"></script>
+		<script src="./owllibs/navHistory.js"></script>
+		<script src="./owllibs/main.js"></script>			
+		<link rel="stylesheet" href="./css/main.css"/>
+		
+		<script src="./owllibs/setup.js"></script>
+		<script src="./local_setup.js"></script>
+				
+    </head>
 
 	<body>
 		<div class="divMenubar" id="idMenubar">
@@ -106,9 +108,6 @@
 
 	        
 		<div class="divOutlinerContainer">
-            <div id="alerts">
-            </div>
-
 
             <div class="fptNavBar">
                 <button class="button" id="backButton">&lt;</button>
@@ -157,8 +156,7 @@
 				$("#backButton").click(function(event) { backButton();  });
 				$("#forwardButton").click(function(event) { forwardButton();  });
 
-
-				$("#makeLinkButton").click(function(event) { makeLink(); });
+				$("#makeLinkButton").click(function(event) { makeLink(); });				
 				
 				$("#upButton").click(function(event)   { opReorg (up, 1); });
 				$("#downButton").click(function(event) { opReorg (down, 1); });
@@ -187,12 +185,10 @@
 
 			    pageStore.get("HelloWorld", function (page) { currentPage = page; });
 
-
 				editPage (pageName);
 				navHistory.newForward(pageName);
 				
-				
-				self.setInterval (function () {backgroundProcess ()}, 10000); //call every 10 seconds
+				self.setInterval (function () {backgroundProcess ()}, 30000); //call every 30 seconds
 				}
 
 		
