@@ -2,8 +2,8 @@
 		background-color: whitesmoke;
 		}
 	.divOutlinerContainer { 
-		width: 75%;
-		margin-top: 75px;
+		width: 90%;
+		margin-top: 55px;
 		margin-left: auto;
 		margin-right: auto;
 		border:1px solid gainsboro;
@@ -62,4 +62,13 @@
 			font-weight: bold;
 			font-style: italic;
 			}
-
+			
+        .fptNavBar {
+            padding:10px;
+        }
+        
+        .fptNavInputs {
+            margin:3px;
+            margin-top:8px;
+            vertical-align:middle;
+        }
