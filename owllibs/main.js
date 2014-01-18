@@ -126,17 +126,20 @@
 						document.body.style.cursor = "default";
 						}
 				}
-			function opCursorMovedCallback (headline) {
-				}
+				
+			function opCursorMovedCallback (headline) {			}
+			
 			function opKeystrokeCallback (event) { 
 				whenLastKeystroke = new Date (); 
-				}
+			}
+				
 			function runSelection () {
 				var value = eval (opGetLineText ());
 				opDeleteSubs ();
 				opInsert (value, "right");
 				opGo ("left", 1);
 				}
+				
 			function setOutlinerPrefs (id, flRenderMode, flReadonly) { 
 				$(id).concord ({
 					"prefs": {
