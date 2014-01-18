@@ -40,3 +40,26 @@ function setupEvents () {
 
 }
 
+
+function commonStartup() {	
+    // This block to allow opening specific outline when page loads in browser
+    // TODO check if working
+    path = window.location.pathname + window.location.hash;
+    console.log(path);
+    console.l
+    if (path.indexOf("#") >= 0) {
+        parts = path.split("#");
+        pageName = parts[parts.length-1];
+    } else {
+        pageName = "HelloWorld";
+    }
+    console.log(pageName);
+    // End of specific page opening
+
+		
+	editPage (pageName);
+	navHistory.newForward(pageName);
+	
+	self.setInterval (function () {backgroundProcess ()}, 30000); //call every 30 seconds
+}
+
