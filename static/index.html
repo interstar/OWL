@@ -126,17 +126,10 @@
 			<div id="outliner">
 				</div>
 			</div>
-			
 		<script>
-		
-			function markdownExport() {
-			    $.get("/md/"+currentPage.pageName, function(data) {
-			        console.log(data);
-			    });
-			}
-			
+
 			function startup () {
-			
+
 				$("#idMenuProductName").text (appConsts.productname);
 				$("#idProductVersion").text ("v" + appConsts.version);
 				//init menu keystrokes
@@ -149,9 +142,8 @@
 						liContent = liContent.replace ("Cmd-", cmdKeyPrefix);
 						li.html (liContent);
 						});
-				setOutlinerPrefs ("#outliner", true, false);
-				opSetFont (appPrefs.outlineFont, appPrefs.outlineFontSize, appPrefs.outlineLineHeight); 
-				
+
+
 				$("#goButton").click(function(event) { goButton(); });
 				$("#backButton").click(function(event) { backButton();  });
 				$("#forwardButton").click(function(event) { forwardButton();  });
@@ -167,6 +159,14 @@
 				$("#forceSaveButton").click(function(event) { savePageNow(); });			
 				$("#markdownExportButton").click(function(event) { markdownExport(); });
 
+						
+						
+				setOutlinerPrefs ("#outliner", true, false);
+				opSetFont (appPrefs.outlineFont, appPrefs.outlineFontSize, appPrefs.outlineLineHeight); 
+				
+
+                // This block to allow opening specific outline when page loads in browser
+                // TODO check if working
 			    path = window.location.pathname + window.location.hash;
 			    console.log(path);
 			    console.l
@@ -177,6 +177,7 @@
 			        pageName = "HelloWorld";
 			    }
 			    console.log(pageName);
+			    // End of specific page opening
 
 					
 			    pageStore = new ServerBasedPageStore("/get/","/put/",function(pName) { 
