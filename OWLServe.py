@@ -18,8 +18,7 @@ def fName(pName) : return "%s%s.opml"%(pagedir,pName)
 class Index ():
     
     def GET(self):        
-        web.redirect(web.ctx.home+'/static/server.html') 
-        #web.internalerror = web.debugerror
+        web.redirect(web.ctx.home+'/static/index.html') 
 
 class Get :
     def GET(self,pName) :
