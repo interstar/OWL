@@ -3,7 +3,7 @@
 
 // This is the single-page localStorage version
 
-            
+
 function localConfigs() {
 	setOutlinerPrefs ("#outliner", true, false);
 	opSetFont (appPrefs.outlineFont, appPrefs.outlineFontSize, appPrefs.outlineLineHeight); 	
