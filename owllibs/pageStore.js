@@ -19,6 +19,24 @@
 
   })();
 
+  this.DummyPageStore = (function() {
+
+    function DummyPageStore() {}
+
+    DummyPageStore.prototype.hasName = function(pName) {
+      return false;
+    };
+
+    DummyPageStore.prototype.get = function(pName, callback) {
+      return callback(new Page(pName, initialOpmltext));
+    };
+
+    DummyPageStore.prototype.save = function(page, errorCallback) {};
+
+    return DummyPageStore;
+
+  })();
+
   this.BrowserBasedPageStore = (function() {
 
     function BrowserBasedPageStore() {}
@@ -93,9 +111,11 @@
         type: 'GET',
         url: this.getUrl + pName,
         success: function(data) {
-          var msg, xmlDoc;
+          var msg, tmp_var, xmlDoc;
           console.log("in success");
-          xmlDoc = $($.parseXML(data));
+          tmp_var = $.parseXML(data);
+          console.log(tmp_var);
+          xmlDoc = $(tmp_var);
           msg = xmlDoc.find("message").html();
           if (msg === "MISSING FILE") {
             console.log("Page " + pName + " doesn't exist so creating");
@@ -133,6 +153,46 @@
     };
 
     return ServerBasedPageStore;
+
+  })();
+
+  this.AndroidBasedPageStore = (function() {
+
+    function AndroidBasedPageStore() {}
+
+    AndroidBasedPageStore.prototype.hasName = function(pName) {
+      var s;
+      s = Android.readPage(pName);
+      if (s === "NO FILE") {
+        return false;
+      }
+      return true;
+    };
+
+    AndroidBasedPageStore.prototype.get = function(pName, callback) {
+      var page, s;
+      console.log("trying to read " + pName + " from Android");
+      s = Android.readPage(pName);
+      console.log("Android read " + pName);
+      console.log(s);
+      if (s === "NO FILE") {
+        page = new Page(pName, initialOpmltext);
+      } else {
+        page = new Page(pName, s);
+      }
+      console.log(page);
+      return callback(page);
+    };
+
+    AndroidBasedPageStore.prototype.save = function(page, errorCallback) {
+      var s;
+      s = Android.writePage(page.pageName, page.body);
+      if (s !== "OK") {
+        return errorCallback(s);
+      }
+    };
+
+    return AndroidBasedPageStore;
 
   })();
 

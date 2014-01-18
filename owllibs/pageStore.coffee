@@ -9,6 +9,16 @@ class @Page
     toString:() ->
         return "#{@pageName} \n #{@body} \n #{@created} \n #{@saved} "
         
+
+class @DummyPageStore
+    hasName:(pName) -> false
+    
+    get:(pName,callback) ->
+        callback(new Page(pName,initialOpmltext))
+        
+    save:(page,errorCallback) ->
+        
+        
         
 class @BrowserBasedPageStore
     k:(pName) -> "fpt.pageStore."+pName
@@ -58,7 +68,10 @@ class @ServerBasedPageStore
             url: @getUrl+pName,
             success: (data) ->
                 console.log("in success")
-                xmlDoc = $($.parseXML(data))                
+                tmp_var = $.parseXML(data)
+                console.log(tmp_var)
+                xmlDoc = $(tmp_var)
+                               
                 msg = xmlDoc.find("message").html()
 
                 if msg == "MISSING FILE"
@@ -90,3 +103,28 @@ class @ServerBasedPageStore
 
 
 
+class @AndroidBasedPageStore
+
+    hasName:(pName) ->
+        s = Android.readPage(pName)
+        if s == "NO FILE"
+            return false
+        return true
+        
+    get:(pName,callback) -> 
+        console.log("trying to read #{pName} from Android")
+        s = Android.readPage(pName)
+        console.log("Android read #{pName}")
+        console.log(s)
+        if s == "NO FILE"
+            page = new Page(pName,initialOpmltext)
+        else 
+            page = new Page(pName,s)
+        console.log(page)
+        callback(page)
+            
+    save:(page,errorCallback) ->         
+        s = Android.writePage(page.pageName,page.body)
+        if s != "OK"
+            errorCallback(s)            
+        
