@@ -53,7 +53,7 @@ You'll need to run a short make script to set up some symbolic links on your mac
     ./make.sh 
     python OWLServe.py
     
-    firefox localhost:8080/static/server.html
+    firefox localhost:8080/static/index.html
 
 
 Your OPML pages will be stored in the static subdirectory of the main owl directory.
