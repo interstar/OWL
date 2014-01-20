@@ -103,7 +103,7 @@ Pretty experimental at the moment, with some serious flaws. BUT it works! And I'
 Watch The Video
 ---------------
 
-<iframe width="560" height="315" src="//www.youtube.com/embed/DG1pxnKnlF4" frameborder="0" allowfullscreen></iframe>
+<iframe width="560" height="315" src="http://www.youtube.com/embed/DG1pxnKnlF4" frameborder="0" allowfullscreen></iframe>
 
 Credits
 -------
