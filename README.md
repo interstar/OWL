@@ -100,6 +100,11 @@ Want to run OWL on your Android tablet? There's now a project for that : [OwlDro
 Pretty experimental at the moment, with some serious flaws. BUT it works! And I'm using it daily as my personal note-taking, todo, app. for the last 4 months or so.
 
 
+Watch The Video
+---------------
+
+<iframe width="560" height="315" src="//www.youtube.com/embed/DG1pxnKnlF4" frameborder="0" allowfullscreen></iframe>
+
 Credits
 -------
 * [Dave Winer](http://scripting.com/) for getting a decent outliner into the browser (at last) and having the generosity to open-source the core.
