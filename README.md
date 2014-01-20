@@ -105,6 +105,8 @@ Watch The Video
 
 <iframe width="560" height="315" src="http://www.youtube.com/embed/DG1pxnKnlF4" frameborder="0" allowfullscreen></iframe>
 
+<a href="http://www.youtube.com/embed/DG1pxnKnlF4">Here ...</a>
+
 Credits
 -------
 * [Dave Winer](http://scripting.com/) for getting a decent outliner into the browser (at last) and having the generosity to open-source the core.
