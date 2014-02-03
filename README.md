@@ -23,6 +23,12 @@ the "real name" and the "display name". But trust me :-) )
 * a very primitive server that lets you save outlines to the local file-system.
 
 
+Quick Look
+----------
+
+![Screenshot](http://sdi.thoughtstorms.info/wp-content/uploads/2014/02/owlss.png)
+
+
 Quick Start #1
 --------------
 
