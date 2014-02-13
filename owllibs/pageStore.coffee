@@ -66,15 +66,14 @@ class @ServerBasedPageStore
         $.ajax({ 
             type: 'GET', 
             url: @getUrl+pName,
-            success: (data) ->
-                console.log("in success")
-                tmp_var = $.parseXML(data)
-                console.log(tmp_var)
-                xmlDoc = $(tmp_var)
-                               
-                msg = xmlDoc.find("message").html()
-
-                if msg == "MISSING FILE"
+            
+            success: (data) ->                
+                x = $($.parseXML(data.toLowerCase())).find('message')[0]
+                msg = ""               
+                if x
+                    msg = x["textContent"]
+                
+                if msg == "missing file"
                     console.log("Page #{pName} doesn't exist so creating")
                     callback(new Page(pName,initialOpmltext))
                 else 

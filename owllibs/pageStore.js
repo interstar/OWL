@@ -111,13 +111,13 @@
         type: 'GET',
         url: this.getUrl + pName,
         success: function(data) {
-          var msg, tmp_var, xmlDoc;
-          console.log("in success");
-          tmp_var = $.parseXML(data);
-          console.log(tmp_var);
-          xmlDoc = $(tmp_var);
-          msg = xmlDoc.find("message").html();
-          if (msg === "MISSING FILE") {
+          var msg, x;
+          x = $($.parseXML(data.toLowerCase())).find('message')[0];
+          msg = "";
+          if (x) {
+            msg = x["textContent"];
+          }
+          if (msg === "missing file") {
             console.log("Page " + pName + " doesn't exist so creating");
             return callback(new Page(pName, initialOpmltext));
           } else {
