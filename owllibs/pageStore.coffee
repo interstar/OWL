@@ -8,16 +8,22 @@ class @Page
     
     toString:() ->
         return "#{@pageName} \n #{@body} \n #{@created} \n #{@saved} "
-        
+
+
+isSystemService = (name) -> name.search("!!") > -1        
+
 
 class @DummyPageStore
     hasName:(pName) -> false
+    
+    hasSystemService:(pName) -> false
     
     get:(pName,callback) ->
         callback(new Page(pName,initialOpmltext))
         
     save:(page,errorCallback) ->
         
+
         
         
 class @BrowserBasedPageStore
@@ -40,6 +46,8 @@ class @BrowserBasedPageStore
         if s?
             return true
         return false
+
+    hasSystemService:(pName) -> false
         
     get:(pName,callback) -> 
         s = localStorage.getItem(@k(pName))        
@@ -55,14 +63,17 @@ class @BrowserBasedPageStore
         @setDirty(pName)
     
     save:(page,errorCallback) -> 
+        if isSystemService(page.pageName)
+            # it's a SystemService (ie. not a page to store, so we do nothing)
+            return
         page.saved = new Date().toString()
         @set(page.pageName,page)
         
 
 class @ServerBasedPageStore
-    constructor:(@getUrl,@postUrl,@postSuccessHandler) ->
+    constructor:(@getUrl,@postUrl,@postSuccessHandler) ->                            
         
-    get:(pName,callback) ->                            
+    get:(pName,callback) ->
         $.ajax({ 
             type: 'GET', 
             url: @getUrl+pName,
@@ -87,6 +98,9 @@ class @ServerBasedPageStore
         
        
     save:(page,saveErrorHandler) ->
+        if isSystemService(page.pageName)
+            # it's not a page to store, so we do nothing
+            return
         $.ajax({
             type : 'POST',
             url : @postUrl+page.pageName,
