@@ -1,6 +1,6 @@
 ### Outliners everywhere!
 
-I've long felt that every operating system and web browser should have a great outliner baked-in. 
+I've long felt that every operating system and web browser should have a great outliner baked-in.  
 
 If you were going to try to do that today, you'd release it under the GPL written in JavaScript. 
 
@@ -68,7 +68,7 @@ This app provides a way to read any OPML file even if you aren't using an outlin
 
 There's a command in Fargo that creates a link between the document you're editing and a reader version.
 
-If you want to run the app, <a href="http://reader.blorkmark.com/">click here</a>.
+If you want to run the app, <a href="http://static.smallpicture.com/concord/example2/index.html">click here</a>.
 
 
 
