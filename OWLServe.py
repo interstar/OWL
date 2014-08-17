@@ -33,21 +33,58 @@ class SystemServices(dict) :
     def getTpl(cls) : return open("./static/SystemServiceTpl.opml").read()
         
     @classmethod
-    def ol(cls,s) : return """<outline text="%s"/>""" % s
+    def ol(cls,s,inner="") : return """<outline text="%s">%s</outline>""" % (s,inner)
+
+    @classmethod
+    def ols(cls,title,items) : return cls.ol(title,"\n".join(items) ) 
+
+    @classmethod
+    def wrap(cls,p) :
+        return cls.ol("&lt;a href='#%s'&gt;%s&lt;/a&gt;"% (p,p))
+
+
+    @classmethod
+    def services(cls) :
+        services = ["!!HelloSystem","!!Status","!!AllPages"]
+        return cls.ols("Services Here", ((cls.wrap(x) for x in services) ) )
         
     @classmethod
     def HelloSystem(cls) :
-        return cls.getTpl() % ("Hello System","""<outline text="This is a reply from the HelloSystem System Service"/>""")
+        return cls.getTpl() % ("Hello System",cls.ol("This is a reply from the HelloSystem System Service"))
 
 
     @classmethod
     def Status(cls) :
         import time
         xs = [
-            "Time and Date : %s" % time.strftime("%c")
-        ]        
-        return cls.getTpl() % ("Status",("".join(cls.ol(x) for x in xs)))
+            "I'm the Python-based OWL Service, and I seem to be working",
+            "Time and Date : %s" % time.strftime("%c"),
+            "For OWL news follow &lt;a href='http://sdi.thoughtstorms.info/?cat=17'&gt;the SmartDisorganized blog&lt;/a&gt;"
+        ]
+        
+        
+        return cls.getTpl() % ("Status",("\n".join(cls.ol(x) for x in xs)) + cls.services())
 
+    
+    @classmethod
+    def AllPages(cls) :
+        import os
+
+        pages = sorted([x.strip(".opml") for x in os.listdir("./static/pages/") if ".opml" in x])
+        d = {}
+        for p in pages :
+            if len(p) < 1 : continue
+            init = p[0]
+            if not d.has_key(init) :
+                d[init] = []
+            d[init].append(p)
+
+        build = ""
+        for k in sorted(d.iterkeys()) :
+            ps = d[k]
+            build = build + """<outline text="%s">%s</outline>""" % (k, "".join(cls.wrap(p) for p in ps))
+        
+        return cls.getTpl() % ("AllPages",build)
     
     @classmethod        
     def standardErrorPage(cls,name) :
