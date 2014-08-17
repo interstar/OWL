@@ -82,12 +82,12 @@ when the user clicks on links.
 
 The patch is recorded in the file called concord.js.diff and is this : 
 
-    @@ -1156,7 +1156,12 @@ function ConcordEvents(root, editor, op, concordInstance) {
+    @@ -1156,7 +1156,12 @@
      		if(target.is("a")){
      			if(target.attr("href")){
      				event.preventDefault();
     -				window.open(target.attr("href"));
-    +				if (concordInstance.prefs()["hasspeciallinkhandler"]==true) {
+    +				if (concordInstance.prefs()["hasspeciallinkhandler"]==true) {				 
     +                    lh = concordInstance.prefs()["speciallinkhandler"];
     +                    lh(target.attr("href"));
     +			    } else {
@@ -96,6 +96,7 @@ The patch is recorded in the file called concord.js.diff and is this :
      				}
      			return;
      			}
+
 
 I'd like to find a way to avoid having to do this. When I do, I'll revert to using the default Concord as a submodule. 
 
