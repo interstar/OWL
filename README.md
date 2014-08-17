@@ -80,7 +80,7 @@ I was really trying hard to avoid forking the Concord library for this.
 But I couldn't make it work without patching a small change into concord.js , basically to allow me to write my own handler for 
 when the user clicks on links.
 
-The patch is recorded in the file called concord.js.diff and is this : 
+The patch is recorded in the file called concord.js.patch and is this : 
 
     @@ -1156,7 +1156,12 @@
      		if(target.is("a")){
