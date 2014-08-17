@@ -1,0 +1,16 @@
+--- ../dave_concord/concord.js	2014-08-17 21:31:16.022851629 +0100
++++ forked_concord/concord.js	2014-05-21 02:22:07.937532231 +0100
+@@ -1156,7 +1156,12 @@
+ 		if(target.is("a")){
+ 			if(target.attr("href")){
+ 				event.preventDefault();
+-				window.open(target.attr("href"));
++				if (concordInstance.prefs()["hasspeciallinkhandler"]==true) {				 
++                    lh = concordInstance.prefs()["speciallinkhandler"];
++                    lh(target.attr("href"));
++			    } else {
++				    window.open(target.attr("href"));
++				    }
+ 				}
+ 			return;
+ 			}
