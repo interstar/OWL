@@ -87,7 +87,7 @@ The patch is recorded in the file called concord.js.patch and is this :
      			if(target.attr("href")){
      				event.preventDefault();
     -				window.open(target.attr("href"));
-    +				if (concordInstance.prefs()["hasspeciallinkhandler"]==true) {				 
+    +				if (concordInstance.prefs()["hasspeciallinkhandler"]==true) {
     +                    lh = concordInstance.prefs()["speciallinkhandler"];
     +                    lh(target.attr("href"));
     +			    } else {
@@ -113,6 +113,12 @@ Watch The Video
 <iframe width="560" height="315" src="http://www.youtube.com/embed/DG1pxnKnlF4" frameborder="0" allowfullscreen></iframe>
 
 <a href="http://www.youtube.com/embed/DG1pxnKnlF4">Here ...</a>
+
+
+OWL on the Desktop
+------------------
+
+OWL is now available as a desktop app. wrapped using [Electron](http://electron.atom.io/). See [this repository](https://github.com/interstar/owl-electron).
 
 Credits
 -------
