@@ -3,7 +3,7 @@ OWL : Outliner with Wiki Linking
 
 I love outlining. I love wiki. What do you get when you create a mutant cross-breed of the two?
 
-A *fucking power tool*, that's what.
+A *f-ing power tool*, that's what.
 
 What?
 -----
@@ -110,9 +110,7 @@ Pretty experimental at the moment, with some serious flaws. BUT it works! And I'
 Watch The Video
 ---------------
 
-<iframe width="560" height="315" src="http://www.youtube.com/embed/DG1pxnKnlF4" frameborder="0" allowfullscreen></iframe>
-
-<a href="http://www.youtube.com/embed/DG1pxnKnlF4">Here ...</a>
+https://www.youtube.com/watch?v=DG1pxnKnlF4
 
 
 OWL on the Desktop
